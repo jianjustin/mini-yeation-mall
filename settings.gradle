@@ -1,0 +1,2 @@
+rootProject.name='mini-yeation-mall'
+include ':app'
