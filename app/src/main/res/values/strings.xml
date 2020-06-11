@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">mini-yeation-mall</string>
+    <string name="app_name">首选服饰</string>
+    <string name="title_home">首页</string>
+    <string name="title_cart">购物车</string>
+    <string name="title_me">我的</string>
+    <string name="to_expand_hint">展开</string>
+    <string name="to_shrink_hint">收起</string>
 </resources>

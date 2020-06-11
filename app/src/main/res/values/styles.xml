@@ -1,11 +1,96 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/colorBg</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <style name="AppTheme.Black.Translucent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/colorBlackTranslucent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Bottom.Slide</item>
+    </style>
+
+    <style name="Animation.Bottom.Slide" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/down_slide_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/down_slide_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/down_slide_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/down_slide_out</item>
+    </style>
+
+    <style name="Toolbar.TitleTheme" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@color/colorTranslucent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.Button.General" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/button_general</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="AppTheme.Button.Primary" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@drawable/button_primary</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="AppTheme.Button.Accent" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/button_accent</item>
+        <item name="android:textSize">@dimen/text_16</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TextButton.General" parent="android:Widget.TextView">
+        <item name="android:background">@drawable/button_general</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:paddingRight">@dimen/dp_16</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+    </style>
+
+    <style name="AppTheme.TextButton.Primary" parent="android:Widget.TextView">
+        <item name="android:background">@drawable/button_primary</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:paddingRight">@dimen/dp_16</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
+    </style>
+
+    <style name="AppTheme.TextButton.Accent" parent="android:Widget.TextView">
+        <item name="android:background">@drawable/button_accent</item>
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">@dimen/dp_16</item>
+        <item name="android:paddingRight">@dimen/dp_16</item>
+        <item name="android:paddingTop">@dimen/dp_10</item>
+        <item name="android:paddingBottom">@dimen/dp_10</item>
     </style>
 
 </resources>
