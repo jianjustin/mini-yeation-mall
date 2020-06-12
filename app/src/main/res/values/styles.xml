@@ -23,6 +23,7 @@
         <item name="android:windowAnimationStyle">@style/Animation.Bottom.Slide</item>
     </style>
 
+    <!--Activity切换动画效果-->
     <style name="Animation.Bottom.Slide" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/down_slide_in</item>
         <item name="android:activityOpenExitAnimation">@anim/down_slide_out</item>

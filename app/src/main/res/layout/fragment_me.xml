@@ -118,7 +118,7 @@
             android:background="@color/colorBg"
             app:layout_constraintTop_toBottomOf="@id/finished_order" />
 
-        <com.zss.ui.row.RowSettingText
+        <org.mini.yeation.mall.view.row.RowSettingText
             android:id="@+id/address_mgr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
             app:layout_constraintTop_toBottomOf="@+id/line2"
             app:rst_title="地址管理" />
 
-        <com.zss.ui.row.RowSettingText
+        <org.mini.yeation.mall.view.row.RowSettingText
             android:id="@+id/help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
             app:layout_constraintTop_toBottomOf="@+id/address_mgr"
             app:rst_title="帮助与客服" />
 
-        <com.zss.ui.row.RowSettingText
+        <org.mini.yeation.mall.view.row.RowSettingText
             android:id="@+id/setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

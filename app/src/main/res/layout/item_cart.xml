@@ -63,7 +63,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/image" />
 
-    <com.zss.ui.button.NumberButton
+    <org.mini.yeation.mall.view.NumberButton
         android:id="@+id/number_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
     android:background="@color/colorWhite"
     android:padding="@dimen/dp_20">
 
-    <com.zss.ui.row.RowEdit
+    <org.mini.yeation.mall.view.row.RowEdit
         android:id="@+id/row_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

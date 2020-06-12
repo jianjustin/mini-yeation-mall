@@ -16,7 +16,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.zss.ui.button.NumberButton
+    <org.mini.yeation.mall.view.NumberButton
         android:id="@+id/number_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

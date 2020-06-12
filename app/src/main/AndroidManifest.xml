@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zss.mall">
+    package="org.mini.yeation.mall">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -20,7 +17,7 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".activity.splash.SplashActivity"
+            android:name="org.mini.yeation.mall.activity.SplashActivity"
             android:theme="@style/AppTheme.Fullscreen">
 
             <intent-filter>
@@ -31,27 +28,28 @@
 
         </activity>
 
+        <!-- 主界面Activity -->
         <activity
-            android:name=".activity.home.HomeActivity"
+            android:name="org.mini.yeation.mall.activity.HomeActivity"
             android:launchMode="singleTask"
             android:configChanges="orientation|screenSize" />
 
         <activity
-            android:name=".activity.select_spec.SelectSpecActivity"
+            android:name="org.mini.yeation.mall.activity.SelectSpecActivity"
             android:theme="@style/AppTheme.Black.Translucent"
             android:configChanges="orientation|screenSize" />
 
         <activity
-            android:name=".activity.select_area.SelectAreaActivity"
+            android:name="org.mini.yeation.mall.activity.SelectAreaActivity"
             android:theme="@style/AppTheme.Black.Translucent"
             android:configChanges="orientation|screenSize" />
 
         <activity
-            android:name="com.zss.ui.activity.BaseFragmentActivity"
+            android:name="org.mini.yeation.mall.activity.base.BaseFragmentActivity"
             android:configChanges="orientation|screenSize" />
 
         <activity
-            android:name="com.zss.ui.activity.ToolbarFragmentActivity"
+            android:name="org.mini.yeation.mall.activity.base.ToolbarFragmentActivity"
             android:configChanges="orientation|screenSize" />
 
     </application>

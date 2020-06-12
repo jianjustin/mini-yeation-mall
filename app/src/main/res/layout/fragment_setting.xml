@@ -6,28 +6,28 @@
     android:background="@color/colorBg"
     android:orientation="vertical">
 
-    <com.zss.ui.row.RowSettingText
+    <org.mini.yeation.mall.view.row.RowSettingText
         android:id="@+id/clear_cache"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:rst_title="清理缓存"/>
 
-    <com.zss.ui.row.RowSettingText
+    <org.mini.yeation.mall.view.row.RowSettingText
         android:id="@+id/problem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:rst_title="常见问题"/>
 
-    <com.zss.ui.row.RowSettingText
+    <org.mini.yeation.mall.view.row.RowSettingText
         android:id="@+id/feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         app:rst_title="意见反馈"/>
 
-    <com.zss.ui.row.RowSettingText
+    <org.mini.yeation.mall.view.row.RowSettingText
         android:id="@+id/about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

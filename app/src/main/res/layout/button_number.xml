@@ -8,7 +8,7 @@
         android:id="@+id/sub"
         android:layout_width="@dimen/dp_24"
         android:layout_height="@dimen/dp_24"
-        android:src="@drawable/button_number_sub"
+        android:src="@drawable/pic_button_number_sub"
         android:gravity="center"/>
 
     <TextView
@@ -30,6 +30,6 @@
         android:id="@+id/add"
         android:layout_width="@dimen/dp_24"
         android:layout_height="@dimen/dp_24"
-        android:src="@drawable/button_number_add"
+        android:src="@drawable/pic_button_number_add"
         android:gravity="center"/>
 </LinearLayout>

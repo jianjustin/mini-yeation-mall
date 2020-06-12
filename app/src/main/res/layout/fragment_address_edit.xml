@@ -6,7 +6,7 @@
     android:background="@color/colorWhite"
     android:orientation="vertical">
 
-    <com.zss.ui.row.RowText
+    <org.mini.yeation.mall.view.row.RowText
         android:id="@+id/area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:rt_hint="省份、城市、区县"/>
 
-    <com.zss.ui.row.RowEdit
+    <org.mini.yeation.mall.view.row.RowEdit
         android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@id/area"
         app:re_hint="详细地址"/>
 
-    <com.zss.ui.row.RowEdit
+    <org.mini.yeation.mall.view.row.RowEdit
         android:id="@+id/consignee"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/address"
         app:re_hint="收货人"/>
 
-    <com.zss.ui.row.RowEdit
+    <org.mini.yeation.mall.view.row.RowEdit
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

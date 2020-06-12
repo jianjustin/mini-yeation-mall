@@ -15,16 +15,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.zss.ui.row.RowInputEdit
+    <org.mini.yeation.mall.view.row.RowInputEdit
         android:id="@+id/mobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
         app:layout_constraintTop_toBottomOf="@id/photo"
         app:re_hint="手机号码"
-        app:re_input_type="text"/>
+        app:re_input_type="number"/>
 
-    <com.zss.ui.row.RowInputEdit
+    <org.mini.yeation.mall.view.row.RowInputEdit
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
