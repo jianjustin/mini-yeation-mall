@@ -2,11 +2,10 @@ package org.mini.yeation.mall.fragment.order_list;
 
 
 import org.json.JSONObject;
-import org.mini.yeation.mall.entity.Order;
-import org.mini.yeation.mall.entity.ResultBean;
+import org.mini.yeation.mall.domain.Order;
+import org.mini.yeation.mall.utils.ResultBean;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.utils.network.BaseResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +22,7 @@ public class OrderListPresenter extends BasePresenter<OrderListModel, OrderListV
         params.put("status", status);
         params.put("page", page);
         params.put("limit", limit);
+        /**
         getModel().queryOrderByStatus(params, new BaseResponse() {
             @Override
             public void onSuccess(ResultBean bean) {
@@ -40,6 +40,7 @@ public class OrderListPresenter extends BasePresenter<OrderListModel, OrderListV
 
             }
         });
+         **/
     }
 
 }

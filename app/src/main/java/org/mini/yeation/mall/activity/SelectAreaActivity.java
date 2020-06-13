@@ -9,8 +9,8 @@ import android.widget.TextView;
 import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.activity.base.BaseActivity;
 import org.mini.yeation.mall.adapter.viewpager.BaseFragmentPagerStateAdapter;
-import org.mini.yeation.mall.entity.Area;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.domain.Area;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.fragment.area_list.AreaListFragment;
 import org.mini.yeation.mall.model.SelectAreaModel;
 import org.mini.yeation.mall.presenter.SelectAreaPresenter;
@@ -76,7 +76,7 @@ public class SelectAreaActivity extends BaseActivity<SelectAreaPresenter> implem
             mTitleList = new ArrayList<>();
             mFragmentList = new ArrayList<>();
             for (Area area : areaList) {
-                mTitleList.add(area.name);
+                mTitleList.add(area.getName());
                 mFragmentList.add(AreaListFragment.newInstance(area.currentLevelList, area));
             }
             mAdapter.setFragment(mTitleList, mFragmentList);
@@ -126,11 +126,11 @@ public class SelectAreaActivity extends BaseActivity<SelectAreaPresenter> implem
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSubscribeEvent(Event.ClickAreaEvent event) {
-        if (event.area.level + 1 < mTitleList.size()) {
+        if (event.area.getLevel() + 1 < mTitleList.size()) {
             List<String> titleList = new ArrayList<>();
             List<Fragment> fragmentList = new ArrayList<>();
             for (int i = 0; i < mTitleList.size(); i++) {
-                if (i <= event.area.level) {
+                if (i <= event.area.getLevel()) {
                     titleList.add(mTitleList.get(i));
                     fragmentList.add(mFragmentList.get(i));
                 }
@@ -138,9 +138,9 @@ public class SelectAreaActivity extends BaseActivity<SelectAreaPresenter> implem
             mTitleList = titleList;
             mFragmentList = fragmentList;
         }
-        mTitleList.set(event.area.level, event.area.name);
+        mTitleList.set(event.area.getLevel(), event.area.getName());
         mAdapter.setFragment(mTitleList, mFragmentList);
-        getPresenter().queryAreaByParentId(event.area.id);
+        getPresenter().queryAreaByParentId(event.area.getId());
     }
 
     @Override

@@ -4,12 +4,10 @@ import android.arch.lifecycle.LifecycleOwner;
 
 
 import org.mini.yeation.mall.BaseApplication;
+import org.mini.yeation.mall.domain.CartGoods;
 import org.mini.yeation.mall.model.base.BaseModel;
 import org.mini.yeation.mall.model.base.IModel;
 import org.mini.yeation.mall.presenter.base.IPresenter;
-import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.utils.network.RetrofitManager;
-import org.mini.yeation.mall.domain.Cart;
 
 import java.util.List;
 import java.util.Map;
@@ -23,14 +21,10 @@ class CartModel extends BaseModel implements IPresenter, IModel {
 
     CompositeDisposable mDisposable = new CompositeDisposable();
 
-    void queryGoodsByLike(Map<String, Object> params, BaseResponse observer) {
-        RetrofitManager.getInstance().mNetwrokService.queryGoodsByLike(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
+    void queryGoodsByLike(Map<String, Object> params) {
     }
 
-    void queryAllCart(Consumer<List<Cart>> consumer) {
+    void queryAllCart(Consumer<List<CartGoods>> consumer) {
         mDisposable.add(BaseApplication.getInstance()
                 .getCartDao()
                 .queryAll()

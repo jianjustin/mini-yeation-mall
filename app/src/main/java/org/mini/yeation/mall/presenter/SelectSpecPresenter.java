@@ -3,21 +3,15 @@ package org.mini.yeation.mall.presenter;
 
 import org.mini.yeation.mall.BaseApplication;
 import org.mini.yeation.mall.domain.base.GoodsSpecificationValue;
-import org.mini.yeation.mall.entity.CartItemProduct;
-import org.mini.yeation.mall.entity.Event;
-import org.mini.yeation.mall.domain.base.GoodsProduct;
-import org.mini.yeation.mall.entity.ResultBean;
+import org.mini.yeation.mall.utils.Event;
+import org.mini.yeation.mall.utils.ResultBean;
 import org.mini.yeation.mall.model.SelectSpecModel;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
-import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 import org.mini.yeation.mall.view.SelectSpecView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +40,7 @@ public class SelectSpecPresenter extends BasePresenter<SelectSpecModel, SelectSp
         Map<String, Object> params = new HashMap<>();
         params.put("goodsId", goodsId);
         params.put("specValueList", specValueList);
+        /**
         getModel().getProductBySpec(params, new BaseResponse() {
             @Override
             public void onSuccess(ResultBean bean) {
@@ -60,6 +55,7 @@ public class SelectSpecPresenter extends BasePresenter<SelectSpecModel, SelectSp
 
             }
         });
+         **/
     }
 
     public void saveCartWithDB(Long productId, int quantity) {
@@ -82,6 +78,7 @@ public class SelectSpecPresenter extends BasePresenter<SelectSpecModel, SelectSp
         Map<String, Object> params = new HashMap<>();
         params.put("productId", productId);
         params.put("quantity", quantity);
+        /**
         getModel().saveCart(cartKey, params, new BaseResponse() {
             @Override
             public void onSuccess(ResultBean bean) {
@@ -112,9 +109,10 @@ public class SelectSpecPresenter extends BasePresenter<SelectSpecModel, SelectSp
 
             }
         });
+         */
     }
 
-    private void saveDB(List<Cart> cartList) {
+    private void saveDB(List<CartGoods> cartList) {
         Observable.empty()
                 .doOnComplete(new Action() {
                     @Override

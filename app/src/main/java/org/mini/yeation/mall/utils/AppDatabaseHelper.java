@@ -7,19 +7,19 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import org.mini.yeation.mall.dao.CartDao;
+import org.mini.yeation.mall.dao.CartGoodsDao;
 import org.mini.yeation.mall.dao.GoodsCategoryDao;
 import org.mini.yeation.mall.dao.GoodsDao;
 import org.mini.yeation.mall.dao.UserDao;
 import org.mini.yeation.mall.domain.Goods;
 import org.mini.yeation.mall.domain.GoodsCategory;
 import org.mini.yeation.mall.domain.User;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 
 /**
  * 基于room抽象层的数据库初始化
  */
-@Database(entities = {Cart.class, User.class, GoodsCategory.class, Goods.class}, version = 1)
+@Database(entities = {CartGoods.class, User.class, GoodsCategory.class, Goods.class}, version = 1)
 public abstract class AppDatabaseHelper extends RoomDatabase {
 
     private static volatile AppDatabaseHelper database;
@@ -68,7 +68,7 @@ public abstract class AppDatabaseHelper extends RoomDatabase {
         return database;
     }
 
-    public abstract CartDao getCartDao();
+    public abstract CartGoodsDao getCartGoodsDao();
     public abstract UserDao getUserDao();
     public abstract GoodsCategoryDao getGoodsCategoryDao();
     public abstract GoodsDao getGoodsDao();

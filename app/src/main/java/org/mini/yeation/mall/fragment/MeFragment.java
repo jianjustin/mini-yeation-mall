@@ -8,7 +8,7 @@ import org.mini.yeation.mall.R;
 
 import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.activity.base.ToolbarFragmentActivity;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.fragment.address.AddressFragment;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.fragment.order.OrderFragment;

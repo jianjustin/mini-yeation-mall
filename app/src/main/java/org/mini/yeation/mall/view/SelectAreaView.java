@@ -1,7 +1,6 @@
 package org.mini.yeation.mall.view;
 
-import org.mini.yeation.mall.entity.Area;
-import org.mini.yeation.mall.view.BaseView;
+import org.mini.yeation.mall.domain.Area;
 
 import java.util.List;
 

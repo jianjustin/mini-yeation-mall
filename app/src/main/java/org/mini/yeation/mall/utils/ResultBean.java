@@ -1,4 +1,4 @@
-package org.mini.yeation.mall.entity;
+package org.mini.yeation.mall.utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

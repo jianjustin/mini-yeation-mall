@@ -3,11 +3,10 @@ package org.mini.yeation.mall.fragment.cart;
 
 import org.json.JSONObject;
 import org.mini.yeation.mall.domain.Goods;
-import org.mini.yeation.mall.entity.ResultBean;
+import org.mini.yeation.mall.utils.ResultBean;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +24,7 @@ class CartPresenter extends BasePresenter<CartModel, CartView> {
         Map<String, Object> params = new HashMap<>();
         params.put("page", page);
         params.put("limit", limit);
+        /**
         getModel().queryGoodsByLike(params, new BaseResponse() {
             @Override
             public void onSuccess(ResultBean bean) {
@@ -40,12 +40,13 @@ class CartPresenter extends BasePresenter<CartModel, CartView> {
 
             }
         });
+         **/
     }
 
     void queryAllCart() {
-        getModel().queryAllCart(new Consumer<List<Cart>>() {
+        getModel().queryAllCart(new Consumer<List<CartGoods>>() {
             @Override
-            public void accept(List<Cart> cartList) throws Exception {
+            public void accept(List<CartGoods> cartList) throws Exception {
                 getView().setCartList(cartList);
             }
         });

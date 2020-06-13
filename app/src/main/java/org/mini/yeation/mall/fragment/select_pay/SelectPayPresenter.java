@@ -1,8 +1,7 @@
 package org.mini.yeation.mall.fragment.select_pay;
 
-import org.mini.yeation.mall.entity.ResultBean;
+import org.mini.yeation.mall.utils.ResultBean;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
-import org.mini.yeation.mall.utils.network.BaseResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +15,7 @@ public class SelectPayPresenter extends BasePresenter<SelectPayModel, SelectPayV
     void alipay(Long orderId) {
         Map<String, Object> params = new HashMap<>();
         params.put("orderId", orderId);
+        /**
         getModel().alipay(params, new BaseResponse() {
             @Override
             public void onSuccess(ResultBean bean) {
@@ -28,5 +28,6 @@ public class SelectPayPresenter extends BasePresenter<SelectPayModel, SelectPayV
 
             }
         });
+         */
     }
 }

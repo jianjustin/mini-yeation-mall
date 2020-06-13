@@ -17,10 +17,10 @@ import org.mini.yeation.mall.activity.base.ToolbarFragmentActivity;
 import org.mini.yeation.mall.adapter.recyclerview.BaseVLayoutAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
 import org.mini.yeation.mall.domain.base.GoodsSpecification;
-import org.mini.yeation.mall.entity.Address;
-import org.mini.yeation.mall.entity.Event;
-import org.mini.yeation.mall.entity.Order;
-import org.mini.yeation.mall.entity.SumFee;
+import org.mini.yeation.mall.domain.Address;
+import org.mini.yeation.mall.domain.base.SumFee;
+import org.mini.yeation.mall.utils.Event;
+import org.mini.yeation.mall.domain.Order;
 import org.mini.yeation.mall.fragment.address.AddressFragment;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.fragment.select_pay.SelectPayFragment;
@@ -32,7 +32,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.mini.yeation.mall.utils.BigDecimalUtils;
 import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 import org.mini.yeation.mall.view.NumberButton;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
     @BindView(R.id.total)
     TextView mTotal;
 
-    BaseVLayoutAdapter<Cart> mCartAdapter;
+    BaseVLayoutAdapter<CartGoods> mCartAdapter;
 
     BaseVLayoutAdapter<Address> mAddressAdapter;
 
@@ -74,10 +74,10 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
                 TextView isDefault = viewHolder.findViewById(R.id.is_default);
                 ImageView rightImage = viewHolder.findViewById(R.id.right_image);
                 viewGroup.setBackgroundResource(R.color.colorOrange);
-                consignee.setText(item.consignee);
-                phone.setText(item.phone);
-                address.setText(String.format("%s %s", item.areaName, item.address));
-                if (item.isDefault == 0) {
+                consignee.setText(item.getConsignee());
+                phone.setText(item.getUsername());
+                address.setText(String.format("%s %s", item.getAreaName(), item.getAddress()));
+                if (item.isDefault()) {
                     isDefault.setVisibility(View.GONE);
                 } else {
                     isDefault.setVisibility(View.VISIBLE);
@@ -100,9 +100,9 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
         linearLayoutHelper.setMargin(0, space, 0, space);
         linearLayoutHelper.setDividerHeight(DPUtils.dp2px(getResources(), 1));
         linearLayoutHelper.setBgColor(AppUtils.getColor(R.color.colorLine));
-        mCartAdapter = new BaseVLayoutAdapter<Cart>(linearLayoutHelper, R.layout.item_cart) {
+        mCartAdapter = new BaseVLayoutAdapter<CartGoods>(linearLayoutHelper, R.layout.item_cart) {
             @Override
-            protected void convert(ViewHolder viewHolder, Cart item, int position) {
+            protected void convert(ViewHolder viewHolder, CartGoods item, int position) {
                 ImageView select = viewHolder.findViewById(R.id.select);
                 select.setVisibility(View.GONE);
                 ImageView image = viewHolder.findViewById(R.id.image);
@@ -116,8 +116,8 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
                     select.setImageResource(R.mipmap.check_normal);
                 }
                 specValues.setText(GoodsSpecification.getSelectSpecValue(item.getSpecificationValues()));
-                name.setText(item.getName());
-                price.setText(AppUtils.toRMBFormat(item.getPrice()));
+                name.setText(item.getGoodsName());
+                price.setText(AppUtils.toRMBFormat(item.getGoodsPrice()));
                 numberBtn.setOnNumberChangedListener(new NumberButton.OnNumberChangedListener() {
                     @Override
                     public void onNumberChanged(int number) {
@@ -152,7 +152,7 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
         getToolbar().setTitle("提交订单");
         assert getArguments() != null;
         String text1 = getArguments().getString(Constants.INTENT_KEY1);
-        List<Cart> cartList = JsonUtils.toList(text1, Cart.class);
+        List<CartGoods> cartList = JsonUtils.toList(text1, CartGoods.class);
         mCartAdapter.replaceAll(cartList);
         if (getArguments().containsKey(Constants.INTENT_KEY2)) {
             String text2 = getArguments().getString(Constants.INTENT_KEY2);
@@ -170,8 +170,8 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
 
     private void calcSum() {
         double sum = 0;
-        for (Cart cart : mCartAdapter.getData()) {
-            double price = Double.valueOf(cart.getPrice()) * cart.getQuantity();
+        for (CartGoods cart : mCartAdapter.getData()) {
+            double price = Double.valueOf(cart.getGoodsPrice()) * cart.getQuantity();
             sum += price;
         }
         String total = BigDecimalUtils.scale(String.valueOf(sum), 2);
@@ -208,7 +208,7 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
 
     @OnClick(R.id.submit_order)
     public void onClick() {
-        Long addressId = mAddressAdapter.getItem(0).id;
+        Long addressId = (long)mAddressAdapter.getItem(0).getId();
         getPresenter().submitOrder(addressId, "", "", "", mCartAdapter.getData());
     }
 

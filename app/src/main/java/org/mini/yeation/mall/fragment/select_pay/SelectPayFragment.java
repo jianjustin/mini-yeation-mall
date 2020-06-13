@@ -13,8 +13,8 @@ import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.adapter.recyclerview.BaseRecyclerAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.LinearDividerItemDecoration;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
-import org.mini.yeation.mall.entity.Order;
-import org.mini.yeation.mall.entity.PayItem;
+import org.mini.yeation.mall.domain.Order;
+import org.mini.yeation.mall.domain.base.PayType;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.utils.app.DPUtils;
 import org.mini.yeation.mall.R;
@@ -41,7 +41,7 @@ public class SelectPayFragment extends BaseFragment<SelectPayPresenter> implemen
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    BaseRecyclerAdapter<PayItem> mAdapter;
+    BaseRecyclerAdapter<PayType> mAdapter;
 
     Order mOrder;
 
@@ -52,9 +52,9 @@ public class SelectPayFragment extends BaseFragment<SelectPayPresenter> implemen
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        mAdapter = new BaseRecyclerAdapter<PayItem>(R.layout.item_pay) {
+        mAdapter = new BaseRecyclerAdapter<PayType>(R.layout.item_pay) {
             @Override
-            protected void convert(ViewHolder viewHolder, PayItem item, int position) {
+            protected void convert(ViewHolder viewHolder, PayType item, int position) {
                 ImageView select = viewHolder.findViewById(R.id.select);
                 ImageView icon = viewHolder.findViewById(R.id.icon);
                 TextView title = viewHolder.findViewById(R.id.title);
@@ -69,7 +69,7 @@ public class SelectPayFragment extends BaseFragment<SelectPayPresenter> implemen
             }
 
             @Override
-            protected void onItemClick(PayItem item, int position) {
+            protected void onItemClick(PayType item, int position) {
                 super.onItemClick(item, position);
                 onSingleSelect(item);
             }
@@ -96,19 +96,19 @@ public class SelectPayFragment extends BaseFragment<SelectPayPresenter> implemen
         String text1 = getArguments().getString(Constants.INTENT_KEY1);
         mOrder = JsonUtils.toObject(text1, Order.class);
 
-        PayItem alipay = new PayItem();
+        PayType alipay = new PayType();
         alipay.isSelect = true;
         alipay.icon = R.mipmap.alipay;
         alipay.title = "支付宝";
         alipay.mode = 1;
 
-        PayItem wxpay = new PayItem();
+        PayType wxpay = new PayType();
         wxpay.isSelect = false;
         wxpay.icon = R.mipmap.wxpay;
         wxpay.title = "微信";
         wxpay.mode = 2;
 
-        List<PayItem> payItemList = new ArrayList<>();
+        List<PayType> payItemList = new ArrayList<>();
         payItemList.add(alipay);
         payItemList.add(wxpay);
         mAdapter.replaceAll(payItemList);
@@ -116,8 +116,8 @@ public class SelectPayFragment extends BaseFragment<SelectPayPresenter> implemen
 
     }
 
-    public void onSingleSelect(PayItem selectItem) {
-        for (PayItem item : mAdapter.getData()) {
+    public void onSingleSelect(PayType selectItem) {
+        for (PayType item : mAdapter.getData()) {
             if (item.equals(selectItem)) {
                 item.isSelect = !item.isSelect;
             } else {
@@ -129,7 +129,7 @@ public class SelectPayFragment extends BaseFragment<SelectPayPresenter> implemen
 
     @OnClick(R.id.sure_btn)
     public void onClick() {
-        getPresenter().alipay(mOrder.id);
+        getPresenter().alipay((long)mOrder.getId());
     }
 
     @Override

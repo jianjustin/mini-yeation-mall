@@ -7,9 +7,9 @@ import org.mini.yeation.mall.R;
 
 import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.activity.SelectAreaActivity;
-import org.mini.yeation.mall.entity.Address;
-import org.mini.yeation.mall.entity.Area;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.domain.Address;
+import org.mini.yeation.mall.domain.Area;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.utils.app.AppUtils;
 
@@ -64,11 +64,11 @@ public class AddressEditFragment extends BaseFragment<AddressEditPresenter> impl
             getToolbar().setTitle("修改地址");
             String text1 = getArguments().getString(Constants.INTENT_KEY1);
             mEditAddress = JsonUtils.toObject(text1, Address.class);
-            mAddress.setText(mEditAddress.address);
-            mConsignee.setText(mEditAddress.consignee);
-            mPhone.setText(mEditAddress.phone);
-            mIsDefault.setChecked(mEditAddress.isDefault == 1);
-            getPresenter().queryCurrentLevelAreaById(mEditAddress.areaId);
+            mAddress.setText(mEditAddress.getAddress());
+            mConsignee.setText(mEditAddress.getConsignee());
+            mPhone.setText(mEditAddress.getUsername());
+            mIsDefault.setChecked(mEditAddress.isDefault());
+            getPresenter().queryCurrentLevelAreaById(mEditAddress.getProvince());
         } else {
             getToolbar().setTitle("新增地址");
         }
@@ -114,9 +114,9 @@ public class AddressEditFragment extends BaseFragment<AddressEditPresenter> impl
                 }
                 Area childArea = mSelectAreaList.get(mSelectAreaList.size() - 1);
                 if (mEditAddress != null) {
-                    getPresenter().updateAddress(mEditAddress.id, childArea.id, addressText, consigneeText, phoneText, mIsDefault.isChecked() ? 1 : 0);
+                    getPresenter().updateAddress(mEditAddress.getId(), childArea.getId(), addressText, consigneeText, phoneText, mIsDefault.isChecked() ? 1 : 0);
                 } else {
-                    getPresenter().saveAddress(childArea.id, addressText, consigneeText, phoneText, mIsDefault.isChecked() ? 1 : 0);
+                    getPresenter().saveAddress(childArea.getId(), addressText, consigneeText, phoneText, mIsDefault.isChecked() ? 1 : 0);
                 }
                 break;
         }
@@ -154,7 +154,7 @@ public class AddressEditFragment extends BaseFragment<AddressEditPresenter> impl
         StringBuilder mBuilder = new StringBuilder();
         for (Area item : areaList) {
             mBuilder.append(" ");
-            mBuilder.append(item.name);
+            mBuilder.append(item.getName());
         }
         mArea.setText(mBuilder.substring(1));
     }

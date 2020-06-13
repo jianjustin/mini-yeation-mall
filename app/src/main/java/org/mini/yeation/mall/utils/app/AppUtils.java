@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import org.greenrobot.eventbus.EventBus;
 import org.mini.yeation.mall.BaseApplication;
 import org.mini.yeation.mall.Constants;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.utils.BigDecimalUtils;
 import org.mini.yeation.mall.utils.JsonUtils;
 

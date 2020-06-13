@@ -35,7 +35,7 @@ import org.mini.yeation.mall.utils.app.AppUtils;
 
 import org.mini.yeation.mall.utils.JsonUtils;
 import org.mini.yeation.mall.utils.app.ToastUtils;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 import org.mini.yeation.mall.view.NumberButton;
 import org.mini.yeation.mall.view.SelectSpecView;
 import org.mini.yeation.mall.view.tag.TagContainerLayout;
@@ -215,14 +215,14 @@ public class SelectSpecActivity extends BaseActivity<SelectSpecPresenter> implem
             return;
         }
         if (UserSession.isLogin()) {
-            List<Cart> cartList = new ArrayList<>();
-            Cart cart = new Cart();
+            List<CartGoods> cartList = new ArrayList<>();
+            CartGoods cart = new CartGoods();
             cart.setProductId((long)mProduct.getId());
             cart.setQuantity(1);
             cart.setGoodsId((long)mGoods.getGoodsId());
-            cart.setName(mGoods.getGoodsName());
+            cart.setGoodsName(mGoods.getGoodsName());
             cart.setImage(mGoods.getImage());
-            cart.setPrice(mProduct.getPrice());
+            cart.setGoodsPrice(mProduct.getPrice());
             cart.setSpecificationValues(mProduct.getSpecificationValues());
             cartList.add(cart);
             Bundle args = new Bundle();

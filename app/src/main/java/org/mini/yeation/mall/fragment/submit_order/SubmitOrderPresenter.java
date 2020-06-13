@@ -2,17 +2,12 @@ package org.mini.yeation.mall.fragment.submit_order;
 
 
 import org.greenrobot.eventbus.EventBus;
-import org.json.JSONObject;
 import org.mini.yeation.mall.BaseApplication;
-import org.mini.yeation.mall.entity.Address;
-import org.mini.yeation.mall.entity.BuyItem;
-import org.mini.yeation.mall.entity.Event;
-import org.mini.yeation.mall.entity.Order;
-import org.mini.yeation.mall.entity.ResultBean;
+import org.mini.yeation.mall.domain.Address;
+import org.mini.yeation.mall.utils.Event;
+import org.mini.yeation.mall.utils.ResultBean;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
-import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,6 +27,7 @@ public class SubmitOrderPresenter extends BasePresenter<SubmitOrderModel, Submit
     }
 
     void getDefaultAddress() {
+        /**
         getModel().getDefaultAddress(new BaseResponse() {
             @Override
             public void onSuccess(ResultBean bean) {
@@ -46,14 +42,16 @@ public class SubmitOrderPresenter extends BasePresenter<SubmitOrderModel, Submit
 
             }
         });
+         **/
     }
 
-    void submitOrder(Long addressId, String invoiceTitle, String invoiceContent, String memo, List<Cart> cartList) {
+    void submitOrder(Long addressId, String invoiceTitle, String invoiceContent, String memo, List<CartGoods> cartList) {
         Map<String, Object> params = new HashMap<>();
         params.put("addressId", addressId);
         params.put("invoiceTitle", invoiceTitle);
         params.put("invoiceContent", invoiceContent);
         params.put("memo", memo);
+        /**
         List<BuyItem> buyItemList = new ArrayList<>();
         for (Cart cart : cartList) {
             BuyItem buyItem = new BuyItem();
@@ -63,6 +61,7 @@ public class SubmitOrderPresenter extends BasePresenter<SubmitOrderModel, Submit
             buyItemList.add(buyItem);
         }
         params.put("buyList", buyItemList);
+
         getModel().submitOrder(params, new BaseResponse() {
             @Override
             public void onSuccess(ResultBean bean) {
@@ -78,9 +77,10 @@ public class SubmitOrderPresenter extends BasePresenter<SubmitOrderModel, Submit
 
             }
         });
+         **/
     }
 
-    private void clearCart(List<Cart> cartList) {
+    private void clearCart(List<CartGoods> cartList) {
         Observable.empty()
                 .doOnComplete(new Action() {
                     @Override

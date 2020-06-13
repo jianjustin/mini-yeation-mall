@@ -1,4 +1,4 @@
-package org.mini.yeation.mall.entity;
+package org.mini.yeation.mall.domain.base;
 
 public class SumFee {
 

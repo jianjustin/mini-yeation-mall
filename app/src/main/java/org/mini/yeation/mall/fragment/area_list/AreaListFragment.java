@@ -10,9 +10,9 @@ import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.adapter.recyclerview.BaseRecyclerAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.LinearDividerItemDecoration;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
-import org.mini.yeation.mall.entity.Area;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.domain.Area;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.utils.app.DPUtils;
 
 import org.mini.yeation.mall.R;
@@ -61,8 +61,8 @@ public class AreaListFragment extends BaseFragment {
             protected void convert(ViewHolder viewHolder, Area item, int position) {
                 ViewGroup viewGroup = viewHolder.findViewById(R.id.root_layout);
                 TextView name = viewHolder.findViewById(R.id.name);
-                name.setText(item.name);
-                if (area != null && area.id == item.id) {
+                name.setText(item.getName());
+                if (area != null && area.getId() == item.getId()) {
                     viewGroup.setBackgroundResource(R.color.colorOrange);
                 } else {
                     viewGroup.setBackgroundResource(R.color.colorWhite);

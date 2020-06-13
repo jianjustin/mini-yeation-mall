@@ -13,8 +13,8 @@ import org.mini.yeation.mall.activity.base.ToolbarFragmentActivity;
 import org.mini.yeation.mall.adapter.recyclerview.BaseRecyclerAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.LinearDividerItemDecoration;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
-import org.mini.yeation.mall.entity.Address;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.domain.Address;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.fragment.address_edit.AddressEditFragment;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.utils.app.DPUtils;
@@ -57,15 +57,15 @@ public class AddressFragment extends BaseFragment<AddressPresenter> implements A
                 TextView address = viewHolder.findViewById(R.id.address);
                 TextView isDefault = viewHolder.findViewById(R.id.is_default);
                 ImageView rightImage = viewHolder.findViewById(R.id.right_image);
-                if (mSelectAddress != null && mSelectAddress.id.equals(item.id)) {
+                if (mSelectAddress != null && mSelectAddress.getId() == item.getId()) {
                     viewGroup.setBackgroundResource(R.color.colorOrange);
                 } else {
                     viewGroup.setBackgroundResource(R.color.colorWhite);
                 }
-                consignee.setText(item.consignee);
-                phone.setText(item.phone);
-                address.setText(String.format("%s %s", item.areaName, item.address));
-                if (item.isDefault == 0) {
+                consignee.setText(item.getConsignee());
+                phone.setText(item.getUsername());
+                address.setText(String.format("%s %s", item.getAreaName(), item.getAddress()));
+                if (item.isDefault()) {
                     isDefault.setVisibility(View.GONE);
                 } else {
                     isDefault.setVisibility(View.VISIBLE);

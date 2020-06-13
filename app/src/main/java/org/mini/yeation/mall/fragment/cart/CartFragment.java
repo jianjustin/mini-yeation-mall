@@ -24,13 +24,14 @@ import org.mini.yeation.mall.adapter.recyclerview.BaseVLayoutAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.CreateViewHolderVLayoutAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
 import org.mini.yeation.mall.domain.Goods;
+import org.mini.yeation.mall.domain.base.CartItemType;
 import org.mini.yeation.mall.domain.base.GoodsSpecification;
-import org.mini.yeation.mall.entity.CartItemType;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.fragment.LoginFragment;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.fragment.GoodsDetailFragment;
 import org.mini.yeation.mall.fragment.submit_order.SubmitOrderFragment;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.utils.UserSession;
 import org.mini.yeation.mall.utils.app.DPUtils;
 
@@ -41,7 +42,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.mini.yeation.mall.utils.BigDecimalUtils;
 import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 import org.mini.yeation.mall.view.NumberButton;
 
 import java.util.ArrayList;
@@ -53,8 +54,6 @@ import butterknife.OnClick;
 
 /**
  * 购物车
- *
- * @author zm
  */
 public class CartFragment extends BaseFragment<CartPresenter> implements CartView {
 
@@ -123,8 +122,8 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
                         select.setImageResource(R.mipmap.check_normal);
                     }
                     specValues.setText(GoodsSpecification.getSelectSpecValue(item.getCart().getSpecificationValues()));
-                    name.setText(item.getCart().getName());
-                    price.setText(AppUtils.toRMBFormat(item.getCart().getPrice()));
+                    name.setText(item.getCart().getGoodsName());
+                    price.setText(AppUtils.toRMBFormat(item.getCart().getGoodsPrice()));
                     select.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -229,10 +228,10 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
     }
 
     @Override
-    public void setCartList(List<Cart> cartList) {
+    public void setCartList(List<CartGoods> cartList) {
         mCartItemTypeList = new ArrayList<>();
         if (cartList != null && cartList.size() > 0) {
-            for (Cart item : cartList) {
+            for (CartGoods item : cartList) {
                 mCartItemTypeList.add(new CartItemType(item));
             }
             mTotalLayout.setVisibility(View.VISIBLE); // 显示底部合计布局
@@ -253,8 +252,8 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
         mGoodsAdapter.replaceAll(goodsList);
     }
 
-    private List<Cart> filterCart() {
-        List<Cart> result = new ArrayList<>();
+    private List<CartGoods> filterCart() {
+        List<CartGoods> result = new ArrayList<>();
         for (CartItemType cartItem : mCartItemTypeList) {
             if (cartItem.getItemType() == CartItemType.ItemType.ItemTypeCart) {
                 result.add(cartItem.getCart());
@@ -263,8 +262,8 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
         return result;
     }
 
-    private List<Cart> filterSelectCart() {
-        List<Cart> result = new ArrayList<>();
+    private List<CartGoods> filterSelectCart() {
+        List<CartGoods> result = new ArrayList<>();
         for (CartItemType cartItem : mCartItemTypeList) {
             if (cartItem.getItemType() == CartItemType.ItemType.ItemTypeCart && cartItem.getCart().getIsSelect() == 1) {
                 result.add(cartItem.getCart());
@@ -277,11 +276,11 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
     private void calcSum() {
         double sum = 0;
         int count = 0;
-        List<Cart> cartList = filterCart();
-        for (Cart cart : cartList) {
+        List<CartGoods> cartList = filterCart();
+        for (CartGoods cart : cartList) {
             if (cart.getIsSelect() == 1) {
                 count++;
-                double price = Double.valueOf(cart.getPrice()) * cart.getQuantity();
+                double price = Double.valueOf(cart.getGoodsPrice()) * cart.getQuantity();
                 sum += price;
             }
         }
@@ -301,7 +300,7 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
 
     //点击选择项
     public void onClickSelectItem(int position) {
-        Cart cart = mCartItemTypeList.get(position).getCart();
+        CartGoods cart = mCartItemTypeList.get(position).getCart();
         if (cart.getIsSelect() == 1) {
             cart.setIsSelect(0);
         } else {
@@ -328,7 +327,7 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
 
     //改变购物车数量
     public void onChangeCartNumber(int position, int number) {
-        Cart cart = mCartItemTypeList.get(position).getCart();
+        CartGoods cart = mCartItemTypeList.get(position).getCart();
         cart.setQuantity(number);
         mCartAdapter.replaceAll(mCartItemTypeList);
         calcSum();

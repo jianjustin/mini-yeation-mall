@@ -1,10 +1,10 @@
-package org.mini.yeation.mall.entity;
+package org.mini.yeation.mall.domain.base;
 
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 
 public class CartItemType {
 
-    private Cart cart; //购物车
+    private CartGoods cart; //购物车
 
     private ItemType itemType; //列表类型
 
@@ -24,7 +24,7 @@ public class CartItemType {
         }
     }
 
-    public CartItemType(Cart cart) {
+    public CartItemType(CartGoods cart) {
         this.cart = cart;
         this.itemType = ItemType.ItemTypeCart;
     }
@@ -33,11 +33,11 @@ public class CartItemType {
         this.itemType = itemType;
     }
 
-    public Cart getCart() {
+    public CartGoods getCart() {
         return cart;
     }
 
-    public void setCart(Cart cart) {
+    public void setCart(CartGoods cart) {
         this.cart = cart;
     }
 

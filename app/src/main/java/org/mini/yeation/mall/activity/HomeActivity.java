@@ -13,7 +13,7 @@ import org.mini.yeation.mall.R;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.mini.yeation.mall.activity.base.BaseActivity;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.fragment.GoodsFragment;
 import org.mini.yeation.mall.fragment.MeFragment;
 import org.mini.yeation.mall.fragment.cart.CartFragment;

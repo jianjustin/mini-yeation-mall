@@ -5,7 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 
 import java.util.List;
 
@@ -13,24 +13,24 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
-public interface CartDao {
+public interface CartGoodsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addOrReplaceList(List<Cart> cartList);
+    void addOrReplaceList(List<CartGoods> cartList);
 
     @Delete
-    void deleteList(List<Cart> cart);
+    void deleteList(List<CartGoods> cart);
 
-    @Query("delete from tb_cart")
+    @Query("delete from cart_goods")
     void deleteAll();
 
-    @Query("select * from tb_cart")
-    Flowable<List<Cart>> queryAll();
+    @Query("select * from cart_goods")
+    Flowable<List<CartGoods>> queryAll();
 
-    @Query("select count(*) as count from tb_cart")
+    @Query("select count(*) as count from cart_goods")
     Single<Integer> getBadgeCount();
 
-    @Query("select cart_key from tb_cart limit 1")
+    @Query("select cart_key from cart_goods limit 1")
     Single<String> getCartKey();
 
 }

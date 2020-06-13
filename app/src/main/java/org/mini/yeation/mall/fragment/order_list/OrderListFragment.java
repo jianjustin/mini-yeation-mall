@@ -16,8 +16,8 @@ import org.mini.yeation.mall.adapter.recyclerview.BaseRecyclerAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.LinearDividerItemDecoration;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
 import org.mini.yeation.mall.domain.base.GoodsSpecification;
-import org.mini.yeation.mall.entity.Order;
-import org.mini.yeation.mall.entity.OrderItem;
+import org.mini.yeation.mall.domain.Order;
+import org.mini.yeation.mall.domain.OrderGoods;
 import org.mini.yeation.mall.fragment.base.LazyFragment;
 import org.mini.yeation.mall.utils.app.DPUtils;
 import org.mini.yeation.mall.R;
@@ -77,38 +77,38 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                         TextView spec = viewHolder.findViewById(R.id.spec);
                         TextView price = viewHolder.findViewById(R.id.price);
                         TextView option1 = viewHolder.findViewById(R.id.option1);
-                        sn.setText(String.format("订单编号：%s", item.sn));
-                        price.setText(AppUtils.toRMBFormat(item.amount));
+                        sn.setText(String.format("订单编号：%s", item.getSn()));
+                        price.setText(AppUtils.toRMBFormat(item.getAddress()));
                         if (item.list.size() >= 3) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            OrderItem item3 = item.list.get(2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            OrderGoods item3 = item.list.get(2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.VISIBLE);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
-                            AppUtils.loadImage(item3.image, image3);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
+                            AppUtils.loadImage(item3.getGoodsImage(), image3);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 2) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.GONE);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 1) {
-                            OrderItem item1 = item.list.get(0);
-                            AppUtils.loadImage(item1.image, image1);
+                            OrderGoods item1 = item.list.get(0);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
-                            name.setText(item1.name);
-                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
+                            name.setText(item1.getGoodsName());
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.getSpecificationValues()));
                         }
                     }
                 };
@@ -126,37 +126,37 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                         ImageView image3 = viewHolder.findViewById(R.id.image3);
                         TextView spec = viewHolder.findViewById(R.id.spec);
                         TextView option1 = viewHolder.findViewById(R.id.option1);
-                        sn.setText(String.format("订单编号：%s", item.sn));
+                        sn.setText(String.format("订单编号：%s", item.getSn()));
                         if (item.list.size() >= 3) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            OrderItem item3 = item.list.get(2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            OrderGoods item3 = item.list.get(2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.VISIBLE);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
-                            AppUtils.loadImage(item3.image, image3);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
+                            AppUtils.loadImage(item3.getGoodsImage(), image3);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 2) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.GONE);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 1) {
-                            OrderItem item1 = item.list.get(0);
-                            AppUtils.loadImage(item1.image, image1);
+                            OrderGoods item1 = item.list.get(0);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
-                            name.setText(item1.name);
-                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
+                            name.setText(item1.getGoodsName());
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.getSpecificationValues()));
                         }
                     }
                 };
@@ -175,37 +175,37 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                         TextView option1 = viewHolder.findViewById(R.id.option1);
                         TextView option2 = viewHolder.findViewById(R.id.option2);
                         TextView option3 = viewHolder.findViewById(R.id.option3);
-                        sn.setText(String.format("订单编号：%s", item.sn));
+                        sn.setText(String.format("订单编号：%s", item.getSn()));
                         if (item.list.size() >= 3) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            OrderItem item3 = item.list.get(2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            OrderGoods item3 = item.list.get(2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.VISIBLE);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
-                            AppUtils.loadImage(item3.image, image3);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
+                            AppUtils.loadImage(item3.getGoodsImage(), image3);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 2) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.GONE);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 1) {
-                            OrderItem item1 = item.list.get(0);
-                            AppUtils.loadImage(item1.image, image1);
+                            OrderGoods item1 = item.list.get(0);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
-                            name.setText(item1.name);
-                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
+                            name.setText(item1.getGoodsImage());
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.getSpecificationValues()));
                         }
                     }
                 };
@@ -224,37 +224,37 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                         TextView spec = viewHolder.findViewById(R.id.spec);
                         TextView option1 = viewHolder.findViewById(R.id.option1);
                         TextView option2 = viewHolder.findViewById(R.id.option2);
-                        sn.setText(String.format("订单编号：%s", item.sn));
+                        sn.setText(String.format("订单编号：%s", item.getSn()));
                         if (item.list.size() >= 3) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            OrderItem item3 = item.list.get(2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            OrderGoods item3 = item.list.get(2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.VISIBLE);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
-                            AppUtils.loadImage(item3.image, image3);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
+                            AppUtils.loadImage(item3.getGoodsImage(), image3);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 2) {
-                            OrderItem item1 = item.list.get(0);
-                            OrderItem item2 = item.list.get(1);
-                            AppUtils.loadImage(item1.image, image1);
-                            AppUtils.loadImage(item2.image, image2);
+                            OrderGoods item1 = item.list.get(0);
+                            OrderGoods item2 = item.list.get(1);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
+                            AppUtils.loadImage(item2.getGoodsImage(), image2);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.VISIBLE);
                             image3.setVisibility(View.GONE);
                             name.setText("");
                             spec.setText("");
                         } else if (item.list.size() == 1) {
-                            OrderItem item1 = item.list.get(0);
-                            AppUtils.loadImage(item1.image, image1);
+                            OrderGoods item1 = item.list.get(0);
+                            AppUtils.loadImage(item1.getGoodsImage(), image1);
                             image1.setVisibility(View.VISIBLE);
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
-                            name.setText(item1.name);
-                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
+                            name.setText(item1.getGoodsName());
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.getSpecificationValues()));
                         }
                     }
                 };

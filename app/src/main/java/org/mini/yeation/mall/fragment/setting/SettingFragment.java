@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 import org.mini.yeation.mall.utils.UserSession;

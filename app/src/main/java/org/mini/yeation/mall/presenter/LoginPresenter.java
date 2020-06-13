@@ -2,14 +2,14 @@ package org.mini.yeation.mall.presenter;
 
 import org.mini.yeation.mall.BaseApplication;
 import org.mini.yeation.mall.domain.User;
-import org.mini.yeation.mall.entity.Event;
+import org.mini.yeation.mall.utils.Event;
 import org.mini.yeation.mall.model.LoginModel;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 import org.mini.yeation.mall.utils.UserSession;
 
 
 import org.greenrobot.eventbus.EventBus;
-import org.mini.yeation.mall.domain.Cart;
+import org.mini.yeation.mall.domain.CartGoods;
 import org.mini.yeation.mall.view.LoginView;
 
 import java.util.List;
@@ -105,7 +105,7 @@ public class LoginPresenter extends BasePresenter<LoginModel, LoginView> {
          */
     }
 
-    private void saveDB(List<Cart> cartList) {
+    private void saveDB(List<CartGoods> cartList) {
         Observable.empty()
                 .doOnComplete(new Action() {
                     @Override

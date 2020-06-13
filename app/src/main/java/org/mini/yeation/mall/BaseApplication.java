@@ -13,7 +13,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
-import org.mini.yeation.mall.dao.CartDao;
+import org.mini.yeation.mall.dao.CartGoodsDao;
 import org.mini.yeation.mall.utils.AppDatabaseHelper;
 import org.mini.yeation.mall.utils.app.ToastUtils;
 
@@ -65,8 +65,8 @@ public class BaseApplication extends Application {
 
 
 
-    public CartDao getCartDao() {
-        return AppDatabaseHelper.getInstance(this).getCartDao();
+    public CartGoodsDao getCartDao() {
+        return AppDatabaseHelper.getInstance(this).getCartGoodsDao();
     }
 
 
