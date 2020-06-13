@@ -9,7 +9,7 @@ import org.mini.yeation.mall.utils.UserSession;
 
 
 import org.greenrobot.eventbus.EventBus;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 import org.mini.yeation.mall.view.LoginView;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.mini.yeation.mall.entity;
 
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 
 public class CartItemType {
 

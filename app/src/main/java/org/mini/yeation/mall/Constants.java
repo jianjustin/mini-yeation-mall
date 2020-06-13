@@ -21,7 +21,7 @@ public interface Constants {
 
     String SP_USER_INFO = "SP_USER_INFO";
 
-    int LIMIT = 20;
+    int LIMIT = 4;
 
     static String getBaseUrl() {
         if (TEST) {

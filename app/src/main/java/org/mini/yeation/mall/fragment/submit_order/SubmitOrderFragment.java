@@ -16,6 +16,7 @@ import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.activity.base.ToolbarFragmentActivity;
 import org.mini.yeation.mall.adapter.recyclerview.BaseVLayoutAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
+import org.mini.yeation.mall.domain.base.GoodsSpecification;
 import org.mini.yeation.mall.entity.Address;
 import org.mini.yeation.mall.entity.Event;
 import org.mini.yeation.mall.entity.Order;
@@ -31,7 +32,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.mini.yeation.mall.utils.BigDecimalUtils;
 import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 import org.mini.yeation.mall.view.NumberButton;
 
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public class SubmitOrderFragment extends BaseFragment<SubmitOrderPresenter> impl
                 } else {
                     select.setImageResource(R.mipmap.check_normal);
                 }
-                specValues.setText(AppUtils.getSelectSpecValue(item.getSpecificationValues()));
+                specValues.setText(GoodsSpecification.getSelectSpecValue(item.getSpecificationValues()));
                 name.setText(item.getName());
                 price.setText(AppUtils.toRMBFormat(item.getPrice()));
                 numberBtn.setOnNumberChangedListener(new NumberButton.OnNumberChangedListener() {

@@ -12,7 +12,7 @@ import org.mini.yeation.mall.entity.ResultBean;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 import org.mini.yeation.mall.utils.JsonUtils;
 import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 
 import java.util.ArrayList;
 import java.util.HashMap;

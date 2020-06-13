@@ -2,7 +2,8 @@ package org.mini.yeation.mall.utils.network;
 
 import android.content.Context;
 
-import org.mini.yeation.mall.entity.Member;
+import org.mini.yeation.mall.domain.User;
+import org.mini.yeation.mall.utils.UserSession;
 import org.mini.yeation.mall.utils.app.NetworkUtils;
 import org.mini.yeation.mall.utils.app.AppUtils;
 
@@ -101,13 +102,15 @@ public class BaseInterceptor {
                     .build();
         }
 
+        /**
+         * 生成头部token
+         * @return
+         */
         private Map<String, String> getHeaderMap() {
-            Map<String, String> mHeaderMap = null;
-            Member member = AppUtils.getMember();
-            if (member != null) {
-                mHeaderMap = new HashMap<>();
-                mHeaderMap.put("token", member.token);
-            }
+            Map<String, String> mHeaderMap = new HashMap<>();
+            User user = UserSession.getUser();
+            if(null == user)return null;
+            mHeaderMap.put("token", String.valueOf(user.getUserid()));
             return mHeaderMap;
         }
     }

@@ -15,6 +15,7 @@ import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.adapter.recyclerview.BaseRecyclerAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.LinearDividerItemDecoration;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
+import org.mini.yeation.mall.domain.base.GoodsSpecification;
 import org.mini.yeation.mall.entity.Order;
 import org.mini.yeation.mall.entity.OrderItem;
 import org.mini.yeation.mall.fragment.base.LazyFragment;
@@ -107,7 +108,7 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
                             name.setText(item1.name);
-                            spec.setText(AppUtils.getSelectSpecValue(item1.specificationValues));
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
                         }
                     }
                 };
@@ -155,7 +156,7 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
                             name.setText(item1.name);
-                            spec.setText(AppUtils.getSelectSpecValue(item1.specificationValues));
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
                         }
                     }
                 };
@@ -204,7 +205,7 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
                             name.setText(item1.name);
-                            spec.setText(AppUtils.getSelectSpecValue(item1.specificationValues));
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
                         }
                     }
                 };
@@ -253,7 +254,7 @@ public class OrderListFragment extends LazyFragment<OrderListPresenter> implemen
                             image2.setVisibility(View.GONE);
                             image3.setVisibility(View.GONE);
                             name.setText(item1.name);
-                            spec.setText(AppUtils.getSelectSpecValue(item1.specificationValues));
+                            spec.setText(GoodsSpecification.getSelectSpecValue(item1.specificationValues));
                         }
                     }
                 };

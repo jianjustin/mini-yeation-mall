@@ -5,7 +5,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 
 import java.util.List;
 

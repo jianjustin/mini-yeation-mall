@@ -6,11 +6,6 @@ import org.mini.yeation.mall.dao.UserDao;
 import org.mini.yeation.mall.domain.User;
 import org.mini.yeation.mall.model.base.BaseModel;
 import org.mini.yeation.mall.utils.AppDatabaseHelper;
-import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.utils.network.RetrofitManager;
-
-import java.util.Map;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;

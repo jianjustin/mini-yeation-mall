@@ -9,12 +9,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.mini.yeation.mall.BaseApplication;
 import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.entity.Event;
-import org.mini.yeation.mall.entity.Member;
-import org.mini.yeation.mall.entity.SpecificationItem;
-import org.mini.yeation.mall.entity.SpecificationValue;
 import org.mini.yeation.mall.utils.BigDecimalUtils;
 import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.utils.network.GlideApp;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -44,22 +40,6 @@ public class AppUtils {
         return "￥" + toRMB(text);
     }
 
-    public static void saveMember(Member member) {
-        SPUtils.putJSONCache(BaseApplication.getInstance(), Constants.SP_USER_INFO, JsonUtils.toString(member));
-    }
-
-    public static Member getMember() {
-        String json = SPUtils.getJSONCache(BaseApplication.getInstance(), Constants.SP_USER_INFO);
-        if (!TextUtils.isEmpty(json)) {
-            return JsonUtils.toObject(json, Member.class);
-        } else {
-            return null;
-        }
-    }
-
-    public static boolean isLogin() {
-        return getMember() != null;
-    }
 
     public static String formatPhone(String phone) {
         int position = phone.indexOf(")");
@@ -69,31 +49,6 @@ public class AppUtils {
         return phone.substring(0, 3) + "****" + phone.substring(7);
     }
 
-    public static String getSelectSpecValue(String specificationValue) {
-        if (specificationValue == null) return "";
-        List<SpecificationValue> specValueList = JsonUtils.toList(specificationValue, SpecificationValue.class);
-        StringBuilder specValues = new StringBuilder();
-        assert specValueList != null;
-        for (SpecificationValue item : specValueList) {
-            specValues.append(",");
-            specValues.append(item.value);
-        }
-        return specValues.substring(1);
-    }
-
-    public static String getSelectSpecItem(String specificationItem) {
-        if (specificationItem == null) return "";
-        List<SpecificationItem> specValueList = JsonUtils.toList(specificationItem, SpecificationItem.class);
-        StringBuilder specValues = new StringBuilder();
-        assert specValueList != null;
-        for (SpecificationItem item : specValueList) {
-            if (item.options != null && item.options.size() > 0) {
-                specValues.append(",");
-                specValues.append(item.name);
-            }
-        }
-        return specValues.substring(1);
-    }
 
     public static boolean isValidateMobile(String phone) {
         String regex = "1[34578]([0-9]){9}";
@@ -126,8 +81,13 @@ public class AppUtils {
         return ContextCompat.getColor(BaseApplication.getInstance(), colorId);
     }
 
+    /**
+     * 缓存图片
+     * @param url
+     * @param image
+     */
     public static void loadImage(String url, ImageView image){
-        GlideApp.with(BaseApplication.getInstance()).load(Constants.getImageUrl() + url).centerCrop().into(image);
+       // GlideApp.with(BaseApplication.getInstance()).load(Constants.getImageUrl() + url).centerCrop().into(image);
     }
 
 }

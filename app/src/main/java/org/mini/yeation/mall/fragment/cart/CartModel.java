@@ -9,7 +9,7 @@ import org.mini.yeation.mall.model.base.IModel;
 import org.mini.yeation.mall.presenter.base.IPresenter;
 import org.mini.yeation.mall.utils.network.BaseResponse;
 import org.mini.yeation.mall.utils.network.RetrofitManager;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 
 import java.util.List;
 import java.util.Map;

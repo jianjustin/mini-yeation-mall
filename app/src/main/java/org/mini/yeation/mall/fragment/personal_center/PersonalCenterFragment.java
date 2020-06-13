@@ -2,9 +2,10 @@ package org.mini.yeation.mall.fragment.personal_center;
 
 import android.os.Bundle;
 
-import org.mini.yeation.mall.entity.Member;
+import org.mini.yeation.mall.domain.User;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.presenter.base.IPresenter;
+import org.mini.yeation.mall.utils.UserSession;
 import org.mini.yeation.mall.utils.app.DPUtils;
 import org.mini.yeation.mall.R;
 import org.mini.yeation.mall.utils.app.AppUtils;
@@ -34,13 +35,13 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void initData() {
         getToolbar().setTitle("个人中心");
-        Member member = AppUtils.getMember();
+        User user = UserSession.getUser();
 
-        mUserId.setStatus(member.sn);
+       // mUserId.setStatus(member.sn);
         mUserId.setRightImage(false);
         int space = DPUtils.dp2px(getResources(), 16);
         mUserId.setStatusPadding(0, 0, space, 0);
-        mPhone.setStatus(AppUtils.formatPhone(member.mobile));
+        mPhone.setStatus(AppUtils.formatPhone(user.getUsername()));
         mPhone.setRightImage(false);
         mPhone.setStatusPadding(0, 0, space, 0);
     }

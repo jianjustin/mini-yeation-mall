@@ -2,11 +2,11 @@ package org.mini.yeation.mall.presenter;
 
 
 import org.mini.yeation.mall.BaseApplication;
+import org.mini.yeation.mall.domain.base.GoodsSpecificationValue;
 import org.mini.yeation.mall.entity.CartItemProduct;
 import org.mini.yeation.mall.entity.Event;
-import org.mini.yeation.mall.entity.Product;
+import org.mini.yeation.mall.domain.base.GoodsProduct;
 import org.mini.yeation.mall.entity.ResultBean;
-import org.mini.yeation.mall.entity.SpecificationValue;
 import org.mini.yeation.mall.model.SelectSpecModel;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 
@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 import org.mini.yeation.mall.utils.JsonUtils;
 import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 import org.mini.yeation.mall.view.SelectSpecView;
 
 import java.util.ArrayList;
@@ -35,7 +35,14 @@ public class SelectSpecPresenter extends BasePresenter<SelectSpecModel, SelectSp
         super(mModel, mView);
     }
 
-    public void getProductBySpec(Long goodsId, List<SpecificationValue> specValueList) {
+    /**
+     * 保存商品到购物车
+     */
+    public void saveCartGoods(){
+
+    }
+
+    public void getProductBySpec(Long goodsId, List<GoodsSpecificationValue> specValueList) {
         Map<String, Object> params = new HashMap<>();
         params.put("goodsId", goodsId);
         params.put("specValueList", specValueList);
@@ -44,7 +51,7 @@ public class SelectSpecPresenter extends BasePresenter<SelectSpecModel, SelectSp
             public void onSuccess(ResultBean bean) {
                 JSONObject data = bean.getJSONObject();
                 String json = data.optString("product");
-                Product product = JsonUtils.toObject(json, Product.class);
+                GoodsProduct product = JsonUtils.toObject(json, GoodsProduct.class);
                 getView().setProduct(product);
             }
 
@@ -58,9 +65,7 @@ public class SelectSpecPresenter extends BasePresenter<SelectSpecModel, SelectSp
     public void saveCartWithDB(Long productId, int quantity) {
         getModel().getKeyCart(new SingleObserver<String>() {
             @Override
-            public void onSubscribe(Disposable d) {
-
-            }
+            public void onSubscribe(Disposable d) {}
             @Override
             public void onSuccess(String cartKey) { // 有数据时
                 saveCart(cartKey, productId, quantity);

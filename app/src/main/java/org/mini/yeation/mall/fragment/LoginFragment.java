@@ -14,7 +14,9 @@ import org.mini.yeation.mall.view.row.RowInputEdit;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
+/**
+ * 登录模块
+ */
 public class LoginFragment extends BaseFragment<LoginPresenter> implements LoginView {
 
     @BindView(R.id.mobile)

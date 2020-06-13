@@ -80,9 +80,8 @@ public abstract class BaseFragment<P extends IPresenter> extends Fragment {
     }
 
     public void finish() {
-        if (getActivity() != null) {
-            getActivity().finish();
-        }
+        if(null == getActivity())return;
+        getActivity().finish();
     }
 
     public void setSupportEventBus() {

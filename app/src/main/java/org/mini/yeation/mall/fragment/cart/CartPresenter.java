@@ -2,12 +2,12 @@ package org.mini.yeation.mall.fragment.cart;
 
 
 import org.json.JSONObject;
-import org.mini.yeation.mall.entity.Goods;
+import org.mini.yeation.mall.domain.Goods;
 import org.mini.yeation.mall.entity.ResultBean;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
 import org.mini.yeation.mall.utils.JsonUtils;
 import org.mini.yeation.mall.utils.network.BaseResponse;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 
 import java.util.HashMap;
 import java.util.List;

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "eff45fe5c0fefb987e4ab9c82e430b34",
+    "identityHash": "da3f9a70c18451243745cc01058561ff",
     "entities": [
       {
         "tableName": "tb_cart",
@@ -109,11 +109,123 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "goods_category",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`categoryid` INTEGER NOT NULL, `category_name` TEXT, `parent_id` INTEGER NOT NULL, `image` TEXT, `level` INTEGER NOT NULL, PRIMARY KEY(`categoryid`))",
+        "fields": [
+          {
+            "fieldPath": "categoryid",
+            "columnName": "categoryid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categoryName",
+            "columnName": "category_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "parentId",
+            "columnName": "parent_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "level",
+            "columnName": "level",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "categoryid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "goods",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`goods_id` INTEGER NOT NULL, `goods_category` INTEGER NOT NULL, `goods_name` TEXT, `goods_caption` TEXT, `goods_price` TEXT, `image` TEXT, `goods_images` TEXT, `goods_parameter` TEXT, `goods_specification` TEXT, PRIMARY KEY(`goods_id`))",
+        "fields": [
+          {
+            "fieldPath": "goodsId",
+            "columnName": "goods_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "goodsCategory",
+            "columnName": "goods_category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "goodsName",
+            "columnName": "goods_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "goodsCaption",
+            "columnName": "goods_caption",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "goodsPrice",
+            "columnName": "goods_price",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "goodsImages",
+            "columnName": "goods_images",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "parameterValues",
+            "columnName": "goods_parameter",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "goodsSpecification",
+            "columnName": "goods_specification",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "goods_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"eff45fe5c0fefb987e4ab9c82e430b34\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"da3f9a70c18451243745cc01058561ff\")"
     ]
   }
 }

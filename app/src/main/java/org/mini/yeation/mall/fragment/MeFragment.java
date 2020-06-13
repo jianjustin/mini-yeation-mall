@@ -9,10 +9,8 @@ import org.mini.yeation.mall.R;
 import org.mini.yeation.mall.Constants;
 import org.mini.yeation.mall.activity.base.ToolbarFragmentActivity;
 import org.mini.yeation.mall.entity.Event;
-import org.mini.yeation.mall.entity.Member;
 import org.mini.yeation.mall.fragment.address.AddressFragment;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
-import org.mini.yeation.mall.fragment.login.LoginFragment;
 import org.mini.yeation.mall.fragment.order.OrderFragment;
 import org.mini.yeation.mall.fragment.personal_center.PersonalCenterFragment;
 import org.mini.yeation.mall.fragment.setting.SettingFragment;
@@ -63,19 +61,19 @@ public class MeFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.photo:
-                if (AppUtils.isLogin()) {
+                if (UserSession.isLogin()) {
                     ToolbarFragmentActivity.createFragment(requireContext(), PersonalCenterFragment.class);
                 } else {
                     ToolbarFragmentActivity.createFragment(requireContext(), LoginFragment.class);
                 }
                 break;
             case R.id.go_login:
-                if (!AppUtils.isLogin()) {
+                if (!UserSession.isLogin()) {
                     ToolbarFragmentActivity.createFragment(requireContext(), LoginFragment.class, null);
                 }
                 break;
             case R.id.un_pay_order:
-                if (AppUtils.isLogin()) {
+                if (UserSession.isLogin()) {
                     Bundle args = new Bundle();
                     args.putInt(Constants.INTENT_KEY1, 0);
                     ToolbarFragmentActivity.createFragment(requireContext(), OrderFragment.class, args);
@@ -84,7 +82,7 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.un_send_order:
-                if (AppUtils.isLogin()) {
+                if (UserSession.isLogin()) {
                     Bundle args = new Bundle();
                     args.putInt(Constants.INTENT_KEY1, 1);
                     ToolbarFragmentActivity.createFragment(requireContext(), OrderFragment.class, args);
@@ -93,7 +91,7 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.un_receive_order:
-                if (AppUtils.isLogin()) {
+                if (UserSession.isLogin()) {
                     Bundle args = new Bundle();
                     args.putInt(Constants.INTENT_KEY1, 2);
                     ToolbarFragmentActivity.createFragment(requireContext(), OrderFragment.class, args);
@@ -102,7 +100,7 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.finished_order:
-                if (AppUtils.isLogin()) {
+                if (UserSession.isLogin()) {
                     Bundle args = new Bundle();
                     args.putInt(Constants.INTENT_KEY1, 3);
                     ToolbarFragmentActivity.createFragment(requireContext(), OrderFragment.class, args);
@@ -111,7 +109,7 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.address_mgr:
-                if (AppUtils.isLogin()) {
+                if (UserSession.isLogin()) {
                     ToolbarFragmentActivity.createFragment(requireContext(), AddressFragment.class);
                 } else {
                     ToolbarFragmentActivity.createFragment(requireContext(), LoginFragment.class);

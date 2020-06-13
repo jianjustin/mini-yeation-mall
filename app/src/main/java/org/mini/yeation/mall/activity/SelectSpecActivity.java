@@ -17,15 +17,16 @@ import org.mini.yeation.mall.activity.base.BaseActivity;
 import org.mini.yeation.mall.activity.base.ToolbarFragmentActivity;
 import org.mini.yeation.mall.adapter.recyclerview.BaseVLayoutAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
-import org.mini.yeation.mall.entity.Goods;
-import org.mini.yeation.mall.entity.Product;
-import org.mini.yeation.mall.entity.SpecificationItem;
-import org.mini.yeation.mall.entity.SpecificationValue;
-import org.mini.yeation.mall.entity.TagBean;
+import org.mini.yeation.mall.domain.Goods;
+import org.mini.yeation.mall.domain.base.GoodsSpecification;
+import org.mini.yeation.mall.domain.base.GoodsSpecificationValue;
+import org.mini.yeation.mall.domain.base.GoodsTag;
+import org.mini.yeation.mall.domain.base.GoodsProduct;
 import org.mini.yeation.mall.fragment.LoginFragment;
 import org.mini.yeation.mall.fragment.submit_order.SubmitOrderFragment;
 import org.mini.yeation.mall.model.SelectSpecModel;
 import org.mini.yeation.mall.presenter.SelectSpecPresenter;
+import org.mini.yeation.mall.utils.UserSession;
 import org.mini.yeation.mall.utils.app.DPUtils;
 import org.mini.yeation.mall.utils.app.StatusBarUtils;
 
@@ -34,7 +35,7 @@ import org.mini.yeation.mall.utils.app.AppUtils;
 
 import org.mini.yeation.mall.utils.JsonUtils;
 import org.mini.yeation.mall.utils.app.ToastUtils;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 import org.mini.yeation.mall.view.NumberButton;
 import org.mini.yeation.mall.view.SelectSpecView;
 import org.mini.yeation.mall.view.tag.TagContainerLayout;
@@ -47,12 +48,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 半透明效果，需要设置主题样式android:theme="@style/AppTheme.Black.Translucent"，所以才用Activity实现
+ * 规格选择Activity
  */
 public class SelectSpecActivity extends BaseActivity<SelectSpecPresenter> implements SelectSpecView {
 
     @BindView(R.id.image)
-    ImageView mImage;
+    ImageView mImage;//商品主图
 
     @BindView(R.id.price)
     TextView mPrice;
@@ -65,15 +66,18 @@ public class SelectSpecActivity extends BaseActivity<SelectSpecPresenter> implem
 
     Goods mGoods;
 
-    Product mProduct;
+    /**
+     * 根据商品信息，规格信息，购买数量组装成待下单商品信息
+     */
+    GoodsProduct mProduct;
 
-    BaseVLayoutAdapter<SpecificationItem> mSpecAdapter;
+    BaseVLayoutAdapter<GoodsSpecification> mSpecAdapter;
 
 
     BaseVLayoutAdapter<String> mBuyNumberAdapter;
 
     //用户选择的规格
-    SparseArray<TagBean> selectedTagArr = new SparseArray<>();
+    SparseArray<GoodsTag> selectedTagArr = new SparseArray<>();
 
     @Override
     public int getViewId() {
@@ -86,55 +90,51 @@ public class SelectSpecActivity extends BaseActivity<SelectSpecPresenter> implem
         int space = DPUtils.dp2px(getResources(), 10);
         linearLayoutHelper.setMarginTop(space);
         linearLayoutHelper.setDividerHeight(space);
-        mSpecAdapter = new BaseVLayoutAdapter<SpecificationItem>(linearLayoutHelper, R.layout.item_spec_lable) {
+
+        //规格属性适配器
+        mSpecAdapter = new BaseVLayoutAdapter<GoodsSpecification>(linearLayoutHelper, R.layout.item_spec_lable) {
             @Override
-            protected void convert(ViewHolder viewHolder, SpecificationItem item, int position) {
-                TextView name = viewHolder.findViewById(R.id.name);
-                TagContainerLayout tagLayout = viewHolder.findViewById(R.id.tag_layout);
-                name.setText(item.name);
-                List<String> mTagList = getTagList(item);
-                tagLayout.setOnTagClickListener(new TagView.OnTagClickListener() {
+            protected void convert(ViewHolder viewHolder, GoodsSpecification item, int position) {
+                TextView name = viewHolder.findViewById(R.id.name);//属性名称
+                TagContainerLayout tagLayout = viewHolder.findViewById(R.id.tag_layout);//属性值
+                name.setText(item.getSpecificationName());
+                List<String> mTagList = GoodsSpecification.getGoodsSpecificationTagList(item);
+                tagLayout.setOnTagClickListener(new TagView.OnTagClickListener() {//属性值点击事件
                     @Override
                     public void onTagClick(int tagIdx, String text) {
-                        TagBean tagBean = selectedTagArr.get(position);
+                        GoodsTag tagBean = selectedTagArr.get(position);
+                        //标签选中&取消选中
                         if (tagBean == null) {
-                            selectedTagArr.put(position, new TagBean(tagIdx, text));
+                            selectedTagArr.put(position, new GoodsTag(tagIdx, text));
                             tagLayout.selectTagView(tagIdx);
-                        } else if (tagIdx == tagBean.tagIdx && text.equals(tagBean.text)) {
+                        } else if (tagIdx == tagBean.getId() && text.equals(tagBean.getName())) {
                             selectedTagArr.remove(position);
                             tagLayout.deselectTagView(tagIdx);
                         } else {
-                            tagLayout.deselectTagView(tagBean.tagIdx);
-                            selectedTagArr.put(position, new TagBean(tagIdx, text));
+                            tagLayout.deselectTagView(tagBean.getId());
+                            selectedTagArr.put(position, new GoodsTag(tagIdx, text));
                             tagLayout.selectTagView(tagIdx);
                         }
+
+                        /*根据商品ID和规格获取对应具体产品*/
                         if (selectedTagArr.size() == mSpecAdapter.getItemCount()) {
-                            List<SpecificationValue> specValueList = new ArrayList<>();
+                            List<GoodsSpecificationValue> specValueList = new ArrayList<>();
                             //按照顺序添加规格
-                            for (SpecificationItem specItem : mSpecAdapter.getData()) {
-                                SpecificationValue specValue = getTagSpecificationValue(specItem);
-                                if(specValue != null){
-                                    specValueList.add(specValue);
-                                }
+                            for (GoodsSpecification specItem : mSpecAdapter.getData()) {
+                                GoodsSpecificationValue specValue = getTagSpecificationValue(specItem);
+                                if(specValue != null)specValueList.add(specValue);
                             }
-                            getPresenter().getProductBySpec(mGoods.id, specValueList);
+                            setProduct(GoodsProduct.getGoodsProduct(mGoods,specValueList));
+                            //getPresenter().getProductBySpec((long)mGoods.getGoodsId(), specValueList);
                         }
                     }
 
                     @Override
-                    public void onTagLongClick(int tagIdx, String text) {
-
-                    }
-
+                    public void onTagLongClick(int tagIdx, String text) {}
                     @Override
-                    public void onSelectedTagDrag(int tagIdx, String text) {
-
-                    }
-
+                    public void onSelectedTagDrag(int tagIdx, String text) {}
                     @Override
-                    public void onTagCrossClick(int tagIdx) {
-
-                    }
+                    public void onTagCrossClick(int tagIdx) {}
                 });
                 tagLayout.setTags(mTagList);
             }
@@ -163,43 +163,32 @@ public class SelectSpecActivity extends BaseActivity<SelectSpecPresenter> implem
     }
 
     @Override
-    public SelectSpecPresenter createPresenter() {
-        return new SelectSpecPresenter(new SelectSpecModel(), this);
-    }
-
-    @Override
     public void initData() {
         StatusBarUtils.setTranslucentStatus(this); //透明状态栏
         StatusBarUtils.setStatusBarDarkTheme(this, true); //状态栏文字黑色
         Bundle args = getIntent().getExtras();
-        if (args != null && args.containsKey(Constants.INTENT_KEY1)) {
-            mGoods = JsonUtils.toObject(args.getString(Constants.INTENT_KEY1), Goods.class);
-            String selectSpecItem = String.format("请选择 %s", AppUtils.getSelectSpecItem(mGoods.specificationItems));
-            List<SpecificationItem> specValueList = JsonUtils.toList(mGoods.specificationItems, SpecificationItem.class);
-            List<SpecificationItem> enableList = new ArrayList<>();
-            for (SpecificationItem item : specValueList) {
-                if (item.selectIds != null && item.selectIds.size() > 0) {
-                    enableList.add(item);
-                }
-            }
-            mSpecAdapter.addAll(enableList);
-            AppUtils.loadImage(mGoods.image, mImage);
-            mPrice.setText(AppUtils.toRMBFormat(mGoods.price));
-            mSelect.setText(selectSpecItem);
-        } else {
-            finish();
-        }
+        if(null ==args || !args.containsKey(Constants.INTENT_KEY1))finish();
+
+        mGoods = JsonUtils.toObject(args.getString(Constants.INTENT_KEY1), Goods.class);
+        String selectSpecItem = String.format("请选择 %s", GoodsSpecification.getSelectSpecItem(mGoods.getGoodsSpecification()));
+
+        List<GoodsSpecification> specValueList = new ArrayList<>();
+        if(null == mGoods.getGoodsSpecification())//规格为空生成默认规格信息
+            specValueList.add(GoodsSpecification.createDefaultGoodsSpecification());
+        else
+            specValueList = JsonUtils.toList(mGoods.getGoodsSpecification(), GoodsSpecification.class);
+        mSpecAdapter.addAll(specValueList);
+        AppUtils.loadImage(mGoods.getImage(), mImage);
+        mPrice.setText(AppUtils.toRMBFormat(mGoods.getGoodsPrice()));
+        mSelect.setText(selectSpecItem);
+
     }
 
     @OnClick({R.id.add_cart, R.id.buy, R.id.close})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.add_cart:
-                if (this.mProduct == null) {
-                    ToastUtils.showToast("请选择 " + AppUtils.getSelectSpecItem(mGoods.specificationItems));
-                    return;
-                }
-                getPresenter().saveCartWithDB(mProduct.id, 1);
+                addGoodsToCart();
                 break;
             case R.id.buy:
                 goSubmitOrder();
@@ -211,32 +200,30 @@ public class SelectSpecActivity extends BaseActivity<SelectSpecPresenter> implem
     }
 
     @Override
-    public void setProduct(Product product) {
+    public void setProduct(GoodsProduct product) {
         this.mProduct = product;
-        mPrice.setText(AppUtils.toRMBFormat(product.price));
-        mSelect.setText(AppUtils.getSelectSpecValue(product.specificationValues));
+        mPrice.setText(AppUtils.toRMBFormat(product.getPrice()));
+        mSelect.setText(GoodsSpecification.getSelectSpecValue(product.getSpecificationValues()));
     }
 
-    @Override
-    public void goBack() {
-        finish();
-    }
-
+    /**
+     * 用户下单
+     */
     private void goSubmitOrder() {
         if (this.mProduct == null) {
-            ToastUtils.showToast("请选择 " + AppUtils.getSelectSpecItem(mGoods.specificationItems));
+            ToastUtils.showToast("请选择 " + GoodsSpecification.getSelectSpecItem(mGoods.getGoodsSpecification()));
             return;
         }
-        if (AppUtils.isLogin()) {
+        if (UserSession.isLogin()) {
             List<Cart> cartList = new ArrayList<>();
             Cart cart = new Cart();
-            cart.setProductId(this.mProduct.id);
+            cart.setProductId((long)mProduct.getId());
             cart.setQuantity(1);
-            cart.setGoodsId(mGoods.id);
-            cart.setName(mGoods.name);
-            cart.setImage(mGoods.image);
-            cart.setPrice(mProduct.price);
-            cart.setSpecificationValues(mProduct.specificationValues);
+            cart.setGoodsId((long)mGoods.getGoodsId());
+            cart.setName(mGoods.getGoodsName());
+            cart.setImage(mGoods.getImage());
+            cart.setPrice(mProduct.getPrice());
+            cart.setSpecificationValues(mProduct.getSpecificationValues());
             cartList.add(cart);
             Bundle args = new Bundle();
             args.putString(Constants.INTENT_KEY1, JsonUtils.toString(cartList));
@@ -246,38 +233,40 @@ public class SelectSpecActivity extends BaseActivity<SelectSpecPresenter> implem
         }
     }
 
-    @Override
-    public void showLoading() {
-
+    /**
+     * 添加商品到购物车
+     */
+    private void addGoodsToCart(){
+        if (this.mProduct == null)
+            ToastUtils.showToast("请选择 " + GoodsSpecification.getSelectSpecItem(mGoods.getGoodsSpecification()));
+        else
+            getPresenter().saveCartWithDB((long)mProduct.getId(), 1);
     }
 
-    @Override
-    public void hideLoading() {
-
-    }
-
-    public List<String> getTagList(SpecificationItem item){
-        List<String> mTagList = new ArrayList<>();
-        for (SpecificationValue spec : item.options) {
-            if (item.selectIds.contains(spec.id)) {
-                mTagList.add(spec.value);
-            }
-        }
-        return mTagList;
-    }
-
-    public SpecificationValue getTagSpecificationValue(SpecificationItem item) {
-        for (SpecificationValue specValue : item.options) {
-            if (item.selectIds.contains(specValue.id)) {
-                for (int i = 0; i < selectedTagArr.size(); i++) {
-                    TagBean tagBean = selectedTagArr.valueAt(i);
-                    if (specValue.value.equals(tagBean.text)) {
-                        return specValue;
-                    }
+    public GoodsSpecificationValue getTagSpecificationValue(GoodsSpecification item) {
+        for (GoodsSpecificationValue specValue : item.getGoodsSpecificationValueList()) {
+            for (int i = 0; i < selectedTagArr.size(); i++) {
+                GoodsTag tagBean = selectedTagArr.valueAt(i);
+                if (specValue.getSpecificationValueName().equals(tagBean.getName())) {
+                    return specValue;
                 }
             }
         }
         return null;
     }
+
+    @Override
+    public SelectSpecPresenter createPresenter() {
+        return new SelectSpecPresenter(new SelectSpecModel(), this);
+    }
+
+    @Override
+    public void goBack() {
+        finish();
+    }
+    @Override
+    public void showLoading() {}
+    @Override
+    public void hideLoading() {}
 
 }

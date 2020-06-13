@@ -23,13 +23,15 @@ import org.mini.yeation.mall.activity.base.ToolbarFragmentActivity;
 import org.mini.yeation.mall.adapter.recyclerview.BaseVLayoutAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.CreateViewHolderVLayoutAdapter;
 import org.mini.yeation.mall.adapter.recyclerview.ViewHolder;
+import org.mini.yeation.mall.domain.Goods;
+import org.mini.yeation.mall.domain.base.GoodsSpecification;
 import org.mini.yeation.mall.entity.CartItemType;
 import org.mini.yeation.mall.entity.Event;
-import org.mini.yeation.mall.entity.Goods;
+import org.mini.yeation.mall.fragment.LoginFragment;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
-import org.mini.yeation.mall.fragment.goods_detail.GoodsDetailFragment;
-import org.mini.yeation.mall.fragment.login.LoginFragment;
+import org.mini.yeation.mall.fragment.GoodsDetailFragment;
 import org.mini.yeation.mall.fragment.submit_order.SubmitOrderFragment;
+import org.mini.yeation.mall.utils.UserSession;
 import org.mini.yeation.mall.utils.app.DPUtils;
 
 import org.mini.yeation.mall.R;
@@ -39,7 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.mini.yeation.mall.utils.BigDecimalUtils;
 import org.mini.yeation.mall.utils.JsonUtils;
-import org.mini.yeation.mall.entity.Cart;
+import org.mini.yeation.mall.domain.Cart;
 import org.mini.yeation.mall.view.NumberButton;
 
 import java.util.ArrayList;
@@ -120,7 +122,7 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
                     } else {
                         select.setImageResource(R.mipmap.check_normal);
                     }
-                    specValues.setText(AppUtils.getSelectSpecValue(item.getCart().getSpecificationValues()));
+                    specValues.setText(GoodsSpecification.getSelectSpecValue(item.getCart().getSpecificationValues()));
                     name.setText(item.getCart().getName());
                     price.setText(AppUtils.toRMBFormat(item.getCart().getPrice()));
                     select.setOnClickListener(new View.OnClickListener() {
@@ -168,10 +170,10 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
                 TextView caption = viewHolder.findViewById(R.id.caption);
                 TextView name = viewHolder.findViewById(R.id.name);
                 TextView price = viewHolder.findViewById(R.id.price);
-                caption.setText(item.caption);
-                name.setText(item.name);
-                price.setText(AppUtils.toRMBFormat(item.price));
-                AppUtils.loadImage(item.image, image);
+                caption.setText(item.getGoodsCaption());
+                name.setText(item.getGoodsName());
+                price.setText(AppUtils.toRMBFormat(item.getGoodsPrice()));
+                AppUtils.loadImage(item.getImage(), image);
             }
 
             @Override
@@ -341,7 +343,7 @@ public class CartFragment extends BaseFragment<CartPresenter> implements CartVie
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.submit_order:
-                if (AppUtils.isLogin()) {
+                if (UserSession.isLogin()) {
                     Bundle args = new Bundle();
                     args.putString(Constants.INTENT_KEY1, JsonUtils.toString(filterSelectCart()));
                     ToolbarFragmentActivity.createFragment(requireContext(), SubmitOrderFragment.class, args);

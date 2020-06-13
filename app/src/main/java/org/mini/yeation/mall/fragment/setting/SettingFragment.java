@@ -7,13 +7,13 @@ import android.widget.Button;
 import org.mini.yeation.mall.entity.Event;
 import org.mini.yeation.mall.fragment.base.BaseFragment;
 import org.mini.yeation.mall.presenter.base.BasePresenter;
+import org.mini.yeation.mall.utils.UserSession;
 import org.mini.yeation.mall.utils.app.DPUtils;
 import org.mini.yeation.mall.R;
 import org.mini.yeation.mall.utils.app.AppUtils;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.mini.yeation.mall.utils.network.GlideCacheUtil;
 import org.mini.yeation.mall.view.CommonDialog;
 import org.mini.yeation.mall.view.row.RowSettingText;
 
@@ -35,7 +35,7 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        mClearCache.setStatus(GlideCacheUtil.getInstance().getCacheSize(getContext()));
+        //mClearCache.setStatus(GlideCacheUtil.getInstance().getCacheSize(getContext()));
         mClearCache.setRightImage(false);
         int space = DPUtils.dp2px(getResources(), 16);
         mClearCache.setStatusPadding(0, 0, space, 0);
@@ -45,7 +45,7 @@ public class SettingFragment extends BaseFragment {
     public void initData() {
         setSupportEventBus();
         getToolbar().setTitle("设置");
-        if (AppUtils.isLogin()) {
+        if (UserSession.isLogin()) {
             mExitBtn.setVisibility(View.VISIBLE);
         } else {
             mExitBtn.setVisibility(View.GONE);
@@ -73,7 +73,7 @@ public class SettingFragment extends BaseFragment {
                 dialog.setOnClickSureListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        GlideCacheUtil.getInstance().clearCache(getContext());
+                        //GlideCacheUtil.getInstance().clearCache(getContext());
                     }
                 });
                 dialog.show();
@@ -93,7 +93,7 @@ public class SettingFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSubscribeEvent(Event.ClearCacheEvent event) {
-        mClearCache.setStatus(GlideCacheUtil.getInstance().getCacheSize(getContext()));
+       // mClearCache.setStatus(GlideCacheUtil.getInstance().getCacheSize(getContext()));
     }
 
 }
