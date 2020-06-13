@@ -28,7 +28,7 @@ public abstract class AppDatabaseHelper extends RoomDatabase {
         if (database == null) {
             synchronized (AppDatabaseHelper.class) {
                 if (database == null) {
-                    database = Room.databaseBuilder(context.getApplicationContext(), AppDatabaseHelper.class, "mallDB1")
+                    database = Room.databaseBuilder(context.getApplicationContext(), AppDatabaseHelper.class, "mallDB2")
                             .addCallback(new RoomDatabase.Callback(){
                                 @Override
                                 public void onCreate(@NonNull SupportSQLiteDatabase db) {
